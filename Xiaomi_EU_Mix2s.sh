@@ -2,9 +2,10 @@
 # Created by Geoffrey "bn_"
 # Mainly used to automate downloading
 # Of updates that are beeing released
+# By Xiaomi.EU through there SourceForge Account
 # To my NAS and SeaFile to sync to my phone
 # This is just some stuff I wrote to
-# facilitate my life
+# facilitate my life and updates on my phone
 PHONE_TO_LOOK_FOR=MiMix2S
 RSS_DEV_FEED=https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/rss?path=/xiaomi.eu/MIUI-WEEKLY-RELEASES
 RSS_STABLE_FEED=https://sourceforge.net/projects/xiaomi-eu-multilang-miui-roms/rss?path=/xiaomi.eu/MIUI-STABLE-RELEASES

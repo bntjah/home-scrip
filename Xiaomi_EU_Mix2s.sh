@@ -39,7 +39,6 @@ if [ ! -d $RSS_LOCAL_DATE_FOLDER ]; then
         mkdir -p $RSS_LOCAL_DATE_FOLDER/
 fi
 
-echo "Download"
 # The following Checks if the file was already downloaded or not
 if [ ! -f $RSS_LOCAL_FILE ]; then
         wget --no-proxy $RSS_File2DL -O $RSS_LOCAL_FILE -q --show-progress

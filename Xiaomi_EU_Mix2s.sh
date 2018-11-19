@@ -11,7 +11,6 @@ RSS_NAS_Folder=/mnt/nas/Xiaomi.EU
 RSS_UPLOAD_DATE=$( /bin/cat ${RSS_TMP_File} | awk -v FS='_' '{print $4}' )
 
 #SeaFile CLI Related Variables
-#seaf-cli download -l bd7b3a2d-8e6c-4598-9446-a7231d9bdaed -s http://192.168.1.57:8000 -d /srv/SeaFile-VM/ -u geoffrey.vanwiele@gmail.com
 SEAFILE_ENABLED=0
 SEAFILE_LIB_ID=
 SEAFILE_LIB_Name=

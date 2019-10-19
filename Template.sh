@@ -31,20 +31,18 @@ echo Define the Secondary DNS you want to use for this system
 read secdnsvm
 echo Setting the Secondary DNS towards ${secdnsvm}
 
-
 #Setting Hostname
 sudo sed -i 's|${tpl_def_hostname}|'${vmname}'|g' /etc/hosts
 sudo hostnamectl set-hostname ${vmname}
 
 #Setting the IP
-sudo sed -i 's|${tpl_def_ip}/${tpl_def_cidr}|'${ipvm}/${subnetvm}'|g' /etc/netplan/1-external.yaml
+sudo sed -i 's|${tpl_def_ip}/${tpl_def_cidr}|'${ipvm}/${subnetvm}'|g' /etc/netplan/${tpl_def_netplan}
 
 #Setting the Primary DNS
-sudo sed -i 's|[${tpl_def_prim_dns}|'${primdnsvm}'|g' /etc/netplan/1-external.yaml
+sudo sed -i 's|[${tpl_def_prim_dns}|'${primdnsvm}'|g' /etc/netplan/${tpl_def_netplan}
 
 #Setting the Secondary DNS
-sudo sed -i 's|${tpl_def_sec_dns}]|'${secdnsvm}'|g' /etc/netplan/1-external.yaml
-
+sudo sed -i 's|${tpl_def_sec_dns}]|'${secdnsvm}'|g' /etc/netplan/${tpl_def_netplan}
 
 echo Everything is set and done, rebooting the VM
 read -n1 -r -p 'Press any key to reboot...' key

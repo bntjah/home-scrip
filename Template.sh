@@ -6,6 +6,7 @@ tpl_def_cidr=
 tpl_def_prim_dns=
 tpl_def_sec_dns=
 tpl_def_hostname=
+tpl_def_netplan=
 
 #Clear the screen so that all questions are clearly visible
 clear

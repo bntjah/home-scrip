@@ -12,7 +12,7 @@ influxdb_db=vacuum
 
 ## Actual Script
 # Get Status to a File
-#/usr/local/bin/miiocli viomivacuum --ip ${viomi_ip} --token ${viomi_token} consumable_status >>/tmp/${viomi_name}.consumables
+/usr/local/bin/miiocli viomivacuum --ip ${viomi_ip} --token ${viomi_token} consumable_status >>/tmp/${viomi_name}.consumables
 
 # Factory Info
 Viomi_Factory_Main=360

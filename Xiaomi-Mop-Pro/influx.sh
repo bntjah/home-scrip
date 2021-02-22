@@ -32,6 +32,8 @@ Viomi_New_Map=$( cat /tmp/${viomi_name}.status | grep "Has new map:" | awk '{pri
 Viomi_Amount_Maps=$( cat /tmp/${viomi_name}.status | grep "Number of maps:" | awk '{print $4}' )
 Viomi_Light_State=$( cat /tmp/${viomi_name}.status | grep "Light state:" | awk '{print $3}')
 timestamp=$( date +%s%N)
+
+## Conversion
 # Convert Secondary Cleaning from 0 to False or 1 to True
 if [ "$Viomi_Sec_Cleanup" = "0" ]; then
                 Viomi_Sec_Clean="False"
@@ -39,13 +41,21 @@ if [ "$Viomi_Sec_Cleanup" = "0" ]; then
                 Viomi_Sec_Clean="True"
 fi
 
+# Convert Mop Pattern Y from Y to True or False
 if [ "$Viomi_Mop_Y" = "Y" ]; then
                 Viomi_Y_Pattern="True"
         else
                 Viomi_Y_Pattern="False"
 fi
 
+# Convert Battery from Fully Charged to 100
+if [ "$Viomi_Battery" = "Fully charged" ]; then
+                Viomi_Battery_Status=100
+        else
+                Viomi_Battery_Status=${Viomi_Battery}
+fi
 
+## Send Data to influxDB
 # Write it to a tmp file
 echo "vacuum name=\"$viomi_name\",status=\"$Viomi_Working_Status\",charging=\"$Viomi_Charging\",battery=\"$Viomi_Battery\",boxtype=\"$Viomi_Box_Type\",profile=\"$Viomi_Mode\",fanspeed=\"$Viomi_Fan_Speed\",edges=\"$Viomi_Vacuum_Edges\",waterpump=\"$Viomi_Water_Grade\",ypattern=\"$Viomi_Y_Pattern\",seccleanup=\"$Viomi_Sec_Clean\",volume=\"$Viomi_Sound_Vol\",cleantime=\"$Viomi_Clean_Time\",cleanarea=\"$Viomi_Clean_Area\",mapid=\"$Viomi_Current_Map\",hasmap=\"$Viomi_Has_Map\",newmaps=\"$Viomi_New_Map\",knownmaps=\"$Viomi_Amount_Maps\",lightstate=\"$Viomi_Light_State\" $timestamp">/tmp/curl_data.txt
 

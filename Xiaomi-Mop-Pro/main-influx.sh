@@ -3,6 +3,9 @@
 viomi_ip=127.0.0.1
 viomi_token=ffffffffffffffffffffffffffffffff
 viomi_name=Vacuum
+influxdb_host=127.0.0.1
+influxdb_port=8086
+influxdb_db=vacuum
 
 ## Actual Script
 # Get Status to a File

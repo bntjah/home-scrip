@@ -1,10 +1,10 @@
-
+#!/bin/bash
 
 ## Variables
-viomi_ip=192.168.11.156
+viomi_ip=127.0.0.1
 viomi_token=6a576f6449644c526d79365432644b42
 viomi_name=GladOS
-influxdb_host=192.168.1.61
+influxdb_host=127.0.0.1
 influxdb_port=8086
 influxdb_db=vacuum
 

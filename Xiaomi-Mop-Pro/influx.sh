@@ -39,8 +39,15 @@ if [ "$Viomi_Sec_Cleanup" = "0" ]; then
                 Viomi_Sec_Clean="True"
 fi
 
+if [ "$Viomi_Mop_Y" = "Y" ]; then
+                Viomi_Y_Pattern="True"
+        else
+                Viomi_Y_Pattern="False"
+fi
+
+
 # Write it to a tmp file
-echo "vacuum name=\"$viomi_name\",status=\"$Viomi_Working_Status\",charging=\"$Viomi_Charging\",battery=\"$Viomi_Battery\",boxtype=\"$Viomi_Box_Type\",profile=\"$Viomi_Mode\",fanspeed=\"$Viomi_Fan_Speed\",edges=\"$Viomi_Vacuum_Edges\",waterpump=\"$Viomi_Water_Grade\",ypattern=\"$Viomi_Mop_Y\",seccleanup=\"$Viomi_Sec_Clean\",volume=\"$Viomi_Sound_Vol\",cleantime=\"$Viomi_Clean_Time\",cleanarea=\"$Viomi_Clean_Area\",mapid=\"$Viomi_Current_Map\",hasmap=\"$Viomi_Has_Map\",newmaps=\"$Viomi_New_Map\",knownmaps=\"$Viomi_Amount_Maps\",lightstate=\"$Viomi_Light_State\" $timestamp">/tmp/curl_data.txt
+echo "vacuum name=\"$viomi_name\",status=\"$Viomi_Working_Status\",charging=\"$Viomi_Charging\",battery=\"$Viomi_Battery\",boxtype=\"$Viomi_Box_Type\",profile=\"$Viomi_Mode\",fanspeed=\"$Viomi_Fan_Speed\",edges=\"$Viomi_Vacuum_Edges\",waterpump=\"$Viomi_Water_Grade\",ypattern=\"$Viomi_Y_Pattern\",seccleanup=\"$Viomi_Sec_Clean\",volume=\"$Viomi_Sound_Vol\",cleantime=\"$Viomi_Clean_Time\",cleanarea=\"$Viomi_Clean_Area\",mapid=\"$Viomi_Current_Map\",hasmap=\"$Viomi_Has_Map\",newmaps=\"$Viomi_New_Map\",knownmaps=\"$Viomi_Amount_Maps\",lightstate=\"$Viomi_Light_State\" $timestamp">/tmp/curl_data.txt
 
 # Send the file contents to to Influxdb
 curl -XPOST "http://$influxdb_host:$influxdb_port/api/v2/write?bucket=$influxdb_db" -d "$(cat /tmp/curl_data.txt)"

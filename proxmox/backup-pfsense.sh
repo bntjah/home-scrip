@@ -12,7 +12,7 @@ keepbackups=1
 tmpfile=/tmp/backup.log
 
 # Start Backup
-#/usr/bin/vzdump ${qmid} --dumpdir ${backupfolder} --mode ${backupmode} --prune-backups keep-last=${keepbackups}  --compress ${backupcompression} >${tmpfile}
+/usr/bin/vzdump ${qmid} --dumpdir ${backupfolder} --mode ${backupmode} --prune-backups keep-last=${keepbackups}  --compress ${backupcompression} >${tmpfile}
 
 # Check if VPN Site to Site is UP
 # Ping the NAS and discard output

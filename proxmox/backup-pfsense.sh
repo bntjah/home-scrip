@@ -24,7 +24,6 @@ if [ $? -eq 0 ]; then
         if [[ -d ${nasfolder}/${nasbackupfolder} ]]; then
                         # Get File Backup to Variable
                         backupped=$( cat ${tmpfile} | grep "creating vzdump archive" | awk '{print $5}' | sed "s/'//g")
-                        backupfile=$( echo "${backupped//+(*\/|.*)}" )
 
                         # Check if Backupped Variable is populated
                         if [ ! -z ${backupped+x} ]; then
@@ -34,12 +33,12 @@ if [ $? -eq 0 ]; then
                         # Copy Backup Files to SMB Share
                         if [ -f ${backupfolder}/${backupped##*/} ]; then
                                 cp ${backupfolder}/${backupped##*/} ${nasfolder}/${nasbackupfolder}/
-                                cp ${backupfolder}/${backupfile}.log ${nasfolder}/${nasbackupfolder}/
+                                cp ${backupfolder}/${backupped//+(*\/|.*)}.log ${nasfolder}/${nasbackupfolder}/
                         fi
 
                         # Check if file is the same size
                         if [[ $(stat -c%s ${backupfolder}/${backupped##*/}) -eq $(stat -c%s ${nasfolder}/${nasbackupfolder}/${backupped##*/}) ]]; then
-                                rm -rf ${backupfolder}/${backupfile}.*
+                                rm -rf ${backupfolder}/${backupped//+(*\/|.*)}.*
                         fi
                 else
                         echo "There is no cifs share mounted from ${ip}"

@@ -38,22 +38,21 @@ if [ $? -eq 0 ]; then
                         fi
 
                         # Check if file is the same size
-                        #if [[ $(stat -c%s ${backupfolder}/${backupped##*/}) -eq $(stat -c%s ${nasfolder}/${nasbackupfolder}/${backupped##*/}) ]]; then
+                        if [[ $(stat -c%s ${backupfolder}/${backupped##*/}) -eq $(stat -c%s ${nasfolder}/${nasbackupfolder}/${backupped##*/}) ]]; then
                                 # Generate MD5 from local file
                                 md5sum ${backupfolder}/${backupped##*/} > ${backupfolder}/${backupped//+(*\/|.*)}.*.md5
-                                # Generate MD5 from copied file
-                                # md5sum ${nasfolder}/${nasbackupfolder}/${backupped##*/} > ${nasfolder}/${nasbackupfolder}/${backupped//+(*\/|.*)}.*.md5
-
-                                # localmd5=$( cat ${backupfolder}/${backupped//+(*\/|.*)}.*.md5 )
-                                # cifsmd5=$( cat ${nasfolder}/${nasbackupfolder}/${backupped//+(*\/|.*)}.*.md5 )
-
+                                if [[ -f ${backupfolder}/${backupped//+(*\/|.*)}.*.md5 ]]; then
+                                        cp ${backupfolder}/${backupped//+(*\/|.*)}.*.md5 ${nasfolder}/${nasbackupfolder}/
+                                fi
                                 # Compare the two MD5 files and if the same delete local backup
-                                #if [[ ${localmd5} -eq ${cifsmd5} ]]; then
-                                       # rm -rf ${backupfolder}/${backupped//+(*\/|.*)}.*
-                                #else
+                                md5sum -c ${nasfolder}/${nasbackupfolder}/${backupped//+(*\/|.*)}.*.md5
+                                
+                                if [ $? -eq 0 ]; then
+                                       rm -rf ${backupfolder}/${backupped//+(*\/|.*)}.*
+                                else
                                         # echo "MD5 Sum differs so local files weren't deleted"
-                                #fi
-                        #fi
+                                fi
+                        fi
                 else
                         echo "There is no cifs share mounted from ${ip}"
                 fi
